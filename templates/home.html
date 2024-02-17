@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Home Page</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+  <!-- Custom css script -->
+  <link type="text/css" rel="stylesheet" href="https://975f0fe6-8ba1-495b-9e6d-f8b6fd87bd90-00-2umfd4pyxue1j.spock.replit.dev/static/style.css">
+
+
+</head>
+<body>
+ <div class="container">
+    <h1>Unlock Your Career With <span class="comp">CyberLink</span></h1>
+    <img src="https://975f0fe6-8ba1-495b-9e6d-f8b6fd87bd90-00-2umfd4pyxue1j.spock.replit.dev/static/banner.jpg" alt="CyberLink banner" class="img-fluid" id="banner">
+
+    <div id="about">
+        <h2>About <span>CyberLink</span></h2>
+         <p>
+    
+    
+            Welcome to CyberLink, your gateway to unlocking limitless career opportunities in the ever-evolving landscape of technology. At CyberLink, we understand the importance of finding the perfect fit for your skills, ambitions, and aspirations. Whether you're a seasoned professional seeking new challenges or a fresh graduate eager to embark on your career journey, CyberLink is here to guide you towards success.
+    
+            Our platform is designed to connect talented individuals with leading companies and organizations across various industries. With a user-friendly interface and advanced search features, navigating through our extensive database of open positions has never been easier. From software development to cybersecurity, data analytics to digital marketing, we offer a diverse range of opportunities to suit every interest and expertise.
+    
+            What sets CyberLink apart is our commitment to fostering meaningful connections between candidates and employers. We prioritize transparency, integrity, and inclusivity in everything we do, ensuring a fair and equitable recruitment process for all. Whether you're looking for full-time employment, freelance gigs, or remote work options, you'll find a plethora of opportunities that match your preferences and requirements.
+    
+            But CyberLink is more than just a job board – it's a community where professionals come together to share insights, exchange ideas, and support each other's growth. Through our blog, forums, and networking events, you'll have access to valuable resources and opportunities for professional development.
+    
+            So why wait? Take the first step towards unlocking your full potential with CyberLink today. Join our community, explore endless possibilities, and embark on a rewarding career journey unlike any other. Your dream job awaits – let CyberLink help you make it a reality.
+    
+         </p>
+       </div>
+       <div class="open-position" id="jobs">
+            <h2>Open Positions</h2>
+           
+       </div>
+       <!-- Imported content -->
+       <div>
+        {% for job in jobs%}
+            
+        {% include "jobitem.html" %}
+    
+        {% endfor %}
+        </div>
+        <button class="btn btn-primary btn-lg ">Contact Us</button>
+
+       <p class="copyright">copyright &copy; 2024, CyberLink</p>
+ </div>
+
+ 
+  
+</body>
+</html>

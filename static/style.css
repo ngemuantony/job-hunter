@@ -1,0 +1,32 @@
+#banner{
+    height: 280px;
+    object-fit:cover;
+    width:100%;
+
+  }
+  .container{
+    max-width: 1200px;
+    margin:0,auto,0,auto;
+    min-width: 96px;
+  }
+  .comp{
+    font-size: 60px;
+    text-decoration:lightgreen;
+  }
+  h1{
+      font-family: roboto;
+  }
+  h2{
+      color: rgb(100,100,100);
+      font-family: roboto;
+      text-align: center;
+  }
+  .open-position{
+      text-align: center;
+      align-items: center;
+  }
+  .copyright{
+  text-align: center;
+  align-items: center;
+  color: red;
+}
