@@ -16,10 +16,10 @@
 </head>
 <body>
   {% include 'nav.html' %}
+  <h1>Unlock Your Career With <span class="comp">CyberLink</span></h1>
+  <img src="../static/banner.jpg" alt="CyberLink banner" class="img-fluid" id="banner">
  <div class="container">
-    <h1>Unlock Your Career With <span class="comp">CyberLink</span></h1>
-    <img src="../static/banner.jpg" alt="CyberLink banner" class="img-fluid" id="banner">
-
+    
     <div id="about">
         <h2>About <span>CyberLink</span></h2>
          <p>
@@ -37,11 +37,36 @@
     
          </p>
        </div>
+       <div class="row">
+        <h2>People working with CyberLink</h2>
+          <div class="col-md-6">
+            <p>
+              
+              Welcome to the vibrant community of individuals powering CyberLink! Our team is a diverse blend of talent,
+              expertise, and passion, all united by a common goal: to innovate and redefine the technological landscape.
+                From seasoned software engineers crafting elegant code to data analysts unraveling insights from vast datasets,
+                each member plays a pivotal role in our journey towards excellence.
+
+              At CyberLink, collaboration is more than just a buzzword – it's the cornerstone of our success. We thrive on sharing
+              ideas, challenging each other, and pushing boundaries to create solutions that make a real impact. Whether we're
+                brainstorming in meetings or collaborating virtually across continents, our team's collective energy and dedication
+                shine through in everything we do.
+
+              But it's not just about the work – it's about the people. We celebrate diversity, foster inclusion, and cultivate an
+              environment where everyone feels valued and empowered to bring their authentic selves to the table. Together, we're 
+              not just building technology; we're building a community of innovators, dreamers, and change-makers. Join us and be 
+              part of something truly remarkable – join the people working with CyberLink.
+                          </p>
+          </div>
+          <div class="d-none d-md-block col-md-6">
+            <img src="../static/people.jpg" alt="" class="people">
+          </div>
+       </div>
        <div class="open-position" id="jobs">
             <h2>Open Positions</h2>
            
        </div>
-       <!-- Imported content -->
+       <!-- Imported content --> 
        <div>
         {% for job in jobs%}
             
