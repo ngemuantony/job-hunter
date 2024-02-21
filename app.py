@@ -25,11 +25,15 @@ with app.app_context():
     db.create_all()
 
 # Route to render the home page with all jobs
+# Route to render the home page with all jobs
+# Route to render the home page with all jobs
 @app.route('/')
 def home_page():
     # Query all jobs from the database
     all_jobs = Job.query.all()
-    return render_template('jobitem.html', jobs="all_jobs")
+    return render_template('home.html', jobs=all_jobs)
+
+
 
 
 # Route to add a new job
