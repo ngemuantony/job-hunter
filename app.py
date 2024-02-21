@@ -1,4 +1,4 @@
-from flask import Flask
+from flask import Flask, render_template, redirect, url_for, jsonify, request
 from flask_sqlalchemy import SQLAlchemy
 
 app = Flask(__name__)
@@ -8,141 +8,72 @@ db_uri = 'postgresql://postgres.ucxjsekrjjmujvckekuq:Juliet$$2006##@aws-0-us-wes
 
 # Set the database URI in the Flask app configuration
 app.config["SQLALCHEMY_DATABASE_URI"] = db_uri
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = True  # For automatically creating tables
 
 db = SQLAlchemy(app)
 
-
-class jobs(db.Model):
-  id = db.Column(db.Integer, primary_key=True, nullable=False)
-  title = db.Column(db.String(50), nullable=False)
-  location = db.Column(db.String(50), nullable=False)
-  salary = db.Column(db.Integer, nullable=False)
-  currency = db.Column(db.String(10), nullable=False)
-  responsibilities = db.Column(db.String(2000), nullable=True)
-  requirements = db.Column(db.String(2000), nullable=True)
-
+class Job(db.Model):
+    id = db.Column(db.Integer, primary_key=True, nullable=False)
+    title = db.Column(db.String(50), nullable=False)
+    location = db.Column(db.String(50), nullable=False)
+    salary = db.Column(db.Integer, nullable=False)
+    currency = db.Column(db.String(10), nullable=False)
+    responsibilities = db.Column(db.String(2000), nullable=True)
+    requirements = db.Column(db.String(2000), nullable=True)
 
 with app.app_context():
-  db.create_all()
+    db.create_all()
 
-JOBS = [{
-    "id":
-    1,
-    "title":
-    "Data Scientist",
-    "location":
-    "Nairobi, Kenya",
-    "company":
-    "Google",
-    "salary":
-    "Ksh 230,000",
-    "description":
-    "Join Google's dynamic team as a Data Scientist and unlock the power of data to drive insights and innovation. Utilize your analytical skills to extract valuable information from large datasets, develop predictive models, and drive data-driven decision-making processes. Collaborate with cross-functional teams to solve complex problems and make a meaningful impact on the world."
-}, {
-    "id":
-    2,
-    "title":
-    "Frontend Engineer",
-    "location":
-    "Nairobi, Kenya",
-    "company":
-    "Microsoft",
-    "salary":
-    "Ksh 210,000",
-    "description":
-    "As a Frontend Engineer at Microsoft, you'll be at the forefront of creating user-friendly and visually appealing web interfaces. Collaborate with designers and backend developers to implement responsive and interactive designs. Leverage your expertise in HTML, CSS, and JavaScript to deliver seamless user experiences across multiple devices and platforms."
-}, {
-    "id":
-    3,
-    "title":
-    "Backend Engineer",
-    "location":
-    "Nairobi, Kenya",
-    "company":
-    "Amazon",
-    "salary":
-    "Ksh 220,000",
-    "description":
-    "Join Amazon's backend engineering team and play a key role in building scalable and reliable systems to power the world's largest online marketplace. Design and develop robust backend services and APIs that handle millions of requests per day. Work with cutting-edge technologies to optimize performance, improve scalability, and ensure the security of our systems."
-}, {
-    "id":
-    4,
-    "title":
-    "Cyber Security Analyst",
-    "location":
-    "Mombasa, Kenya",
-    "company":
-    "Naivas",
-    "salary":
-    "Ksh 180,000",
-    "description":
-    "Protect Naivas' digital assets from cyber threats as a Cyber Security Analyst. Monitor and analyze security incidents, conduct vulnerability assessments, and implement security controls to safeguard the organization's information systems. Stay ahead of emerging threats and trends in the cybersecurity landscape to ensure Naivas remains secure and resilient."
-}, {
-    "id":
-    5,
-    "title":
-    "Ethical Hacker",
-    "location":
-    "Kisumu, Kenya",
-    "company":
-    "CBK",
-    "salary":
-    "Ksh 200,000",
-    "description":
-    "Join the Central Bank of Kenya as an Ethical Hacker and utilize your skills to identify and mitigate potential security vulnerabilities. Conduct penetration testing, ethical hacking, and security assessments to proactively identify weaknesses in CBK's systems and applications. Collaborate with stakeholders to develop and implement effective security measures to protect sensitive information and maintain regulatory compliance."
-}, {
-    "id":
-    6,
-    "title":
-    "Network Engineer",
-    "location":
-    "Machakos, Kenya",
-    "company":
-    "Google",
-    "salary":
-    "Ksh 210,000",
-    "description":
-    "Be part of Google's network engineering team and help build and maintain the backbone of the internet. Design, deploy, and optimize scalable network infrastructures to support Google's vast array of products and services. Collaborate with cross-functional teams to troubleshoot network issues, optimize performance, and ensure the reliability and security of Google's global network."
-}, {
-    "id":
-    7,
-    "title":
-    "System Analyst",
-    "location":
-    "Nairobi, Kenya",
-    "company":
-    "Microsoft",
-    "salary":
-    "Ksh 200,000",
-    "description":
-    "Join Microsoft as a System Analyst and play a crucial role in optimizing and enhancing the organization's IT systems and processes. Analyze user requirements, design system solutions, and oversee the implementation and integration of new technologies. Collaborate with stakeholders to streamline workflows, improve efficiency, and drive innovation across Microsoft's diverse range of products and services."
-}, {
-    "id":
-    8,
-    "title":
-    "Database Administrator",
-    "location":
-    "Nairobi, Kenya",
-    "company":
-    "Amazon",
-    "salary":
-    "Ksh 220,000",
-    "description":
-    "Manage and optimize Amazon's vast databases as a Database Administrator. Ensure the reliability, performance, and security of Amazon's data infrastructure by implementing effective backup and recovery strategies, monitoring database performance, and implementing security best practices. Collaborate with development teams to design and optimize database schemas and queries, enabling Amazon to deliver seamless customer experiences."
-}]
-
-
+# Route to render the home page with all jobs
 @app.route('/')
 def home_page():
-  return render_template('home.html', jobs=JOBS)
+    # Query all jobs from the database
+    all_jobs = Job.query.all()
+    return render_template('jobitem.html', jobs="all_jobs")
 
 
-# Creating an endpoint to access data for other programmers to work with.
+# Route to add a new job
+@app.route('/add_job', methods=['GET', 'POST'])
+def add_job():
+    if request.method == 'POST':
+        # Get form data
+        title = request.form['title']
+        location = request.form['location']
+        salary = int(request.form['salary'])
+        currency = request.form['currency']
+        responsibilities = request.form['responsibilities']
+        requirements = request.form['requirements']
+
+        # Create a new job object
+        new_job = Job(title=title, location=location, salary=salary, currency=currency, responsibilities=responsibilities, requirements=requirements)
+
+        # Add the new job to the database
+        db.session.add(new_job)
+        db.session.commit()
+
+        # Redirect to the job list page
+        return redirect(url_for('home_page'))
+
+    # If GET request, render the form to add a new job
+    return render_template('jobs.html')
+
+# Route to access job data in JSON format
 @app.route('/api/jobs')
 def jobs():
-  # Extracting data through (Javascript Object) jsonify
-  return jsonify(JOBS)
-
+    jobs = Job.query.all()
+    jobs_data = []
+    for job in jobs:
+        job_data = {
+            "id": job.id,
+            "title": job.title,
+            "location": job.location,
+            "salary": job.salary,
+            "currency": job.currency,
+            "responsibilities": job.responsibilities,
+            "requirements": job.requirements
+        }
+        jobs_data.append(job_data)
+    return jsonify(JOBS=jobs_data)
 
 if __name__ == '__main__':
-  app.run(host='0.0.0.0', port=8080, debug=True)
+    app.run(host='0.0.0.0', port=8080, debug=True)
