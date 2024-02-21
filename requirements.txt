@@ -2,5 +2,6 @@ Flask
 gunicorn
 pymysql
 bcrypt
-flask-sqlalchemy psycopg2
+flask-sqlalchemy
+psycopg2
 requests
