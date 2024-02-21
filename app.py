@@ -1,6 +1,29 @@
-from flask import Flask, render_template, jsonify
+from flask import Flask
+from flask_sqlalchemy import SQLAlchemy
 
 app = Flask(__name__)
+
+# Construct the database URI
+db_uri = 'postgresql://postgres.ucxjsekrjjmujvckekuq:Juliet$$2006##@aws-0-us-west-1.pooler.supabase.com:5432/postgres'
+
+# Set the database URI in the Flask app configuration
+app.config["SQLALCHEMY_DATABASE_URI"] = db_uri
+
+db = SQLAlchemy(app)
+
+
+class jobs(db.Model):
+  id = db.Column(db.Integer, primary_key=True, nullable=False)
+  title = db.Column(db.String(50), nullable=False)
+  location = db.Column(db.String(50), nullable=False)
+  salary = db.Column(db.Integer, nullable=False)
+  currency = db.Column(db.String(10), nullable=False)
+  responsibilities = db.Column(db.String(2000), nullable=True)
+  requirements = db.Column(db.String(2000), nullable=True)
+
+
+with app.app_context():
+  db.create_all()
 
 JOBS = [{
     "id":

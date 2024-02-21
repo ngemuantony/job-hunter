@@ -9,6 +9,7 @@ packages = [{include = "repl_nix_job_hunter"}]
 [tool.poetry.dependencies]
 python = "^3.10"
 flask = "^3.0.2"
+flask-sqlalchemy = "^3.1.1"
 
 
 [build-system]
