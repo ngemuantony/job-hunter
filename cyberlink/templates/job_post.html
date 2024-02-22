@@ -1,0 +1,94 @@
+<!-- ======================= Enheriting the base content ================================= -->
+{% extends 'base.html' %}
+
+{% block title %}
+    admin_manage post
+{% endblock%}
+
+<!-- ====================== Beginings of the body================================= -->
+{% block content %}
+<div class="container">
+    <h2>ADMINISTRATOR MANAGE JOB ENTRIES FORM</h2>
+    <!-- form-control class styles the input tag -->
+    <section class="row">
+        <div class="col-md-4">
+            <form action="" method="POST">
+                <input type="text" placeholder="Job title" class="form-control" id="title" name="title" required><br>
+                <input type="text" placeholder="Location" class="form-control" id="location" name="location" required><br>
+                <input type="number" placeholder="Salary" class="form-control" id="salary" name="salary"><br>
+                <input type="text" placeholder="Currency" class="form-control" id="currency" name="currency"  required><br>
+
+                <div>
+                    <h4 style="color: green;"><p>{{messages}}</p></h4>
+                </div>
+        </div>
+
+        <div class="col-md-8">
+            <div class="card shadow">
+                <label for="responsibilities">Responsibilities:</label><br>
+                <textarea id="responsibilities" name="responsibilities" rows="4" cols="30"></textarea>
+                
+                <label for="requirements">Requirements:</label>
+                <textarea id="requirements" name="requirements" rows="3" cols="30" required></textarea>
+                <div class="card-body">
+                   
+                    <button type="submit" class="btn btn-info">Confirm Submission</button>
+                    <button type="button"data-bs-toggle="modal" data-bs-target="#mymodal">
+                        Check more packages
+                    </button>
+
+                </div>
+
+            </div>
+
+        </div>
+    </form>
+
+    </section>
+    <!-- Modal-its a popup screen -->
+    <!-- Each modal should have a unique id -->
+    <div id="mymodal" class="modal fade">
+        <div class="modal-dialog">
+            <div class="modal-content p-3">
+                <div class="open-position" id="jobs">
+                    <h2>AVAILABLE LIST</h2>
+               </div>
+
+                {% for job in jobs%}
+                <h4 style="color: rgb(120, 120, 120); margin-bottom: 4px;">
+                    {{ job.title }}
+                </h4>
+        
+               
+               <!-- Imported content --> 
+               <div>
+               
+                    
+                <div>
+                    <b>Location: </b>{{ job.location }}
+                </div>
+                <div>
+                    <b>Company: </b>{{ job.company }}
+                </div>
+                {% if job.salary %}
+                <div>
+                    <b>Salary: </b>{{ job.salary }}
+                </div>
+                {% endif %}
+                <div>
+                    <b>Job Overview: </b>{{ job.description }}
+                </div>
+        
+                {% endfor %}
+                </div>
+                <button type="button" data-bs-dismiss="modal">close</button>
+            </div>
+
+        </div>
+
+    </div>
+
+
+</div>
+{% endblock%}
+   
