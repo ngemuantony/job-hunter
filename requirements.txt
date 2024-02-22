@@ -5,3 +5,4 @@ bcrypt
 flask-sqlalchemy
 psycopg2
 requests
+flask_wtf
