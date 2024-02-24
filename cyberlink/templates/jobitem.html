@@ -1,28 +1,23 @@
-<!-- ======================= Enheriting the base content ================================= -->
 {% extends 'base.html' %}
 
 {% block title %}
     Available opportunities
 {% endblock %}
 
-<!-- ======================== Begining of block content (body) ========================= -->
 {% block content %}
 
+<!-- ======================== Begining of block content (body) ========================= -->
 <div class="border-bottom row" style="margin-bottom: 16px; padding-bottom: 4px;">
-    <div class="col-10">
-        <div class="open-position" id="jobs">
-            <h2>Open Positions</h2>    
-       </div>
-
-        {% for job in jobs %}
+    <div class="open-position" id="jobs">
+        <h2>Open Positions</h2>    
+    </div>
+    {% for job in jobs %}
+    <div class="col-md-6">
+        
         <h4 style="color: rgb(120, 120, 120); margin-bottom: 4px;">
             {{ job.title }}
         </h4>
 
-       <!-- Imported content --> 
-       <div>
-       
-            
         <div>
             <b>Location: </b>{{ job.location }}
         </div>
@@ -35,16 +30,30 @@
         </div>
         {% endif %}
         <div>
-            <b>Job Overview: </b>{{ job.description }}
+            <br>
+            <b class="responsibilities">RESPONSIBILITIES: </b>
+            <p>{{ job.responsibilities }}</p>
         </div>
+        <div>
+            <br>
+            <b class="requirements">REQUIREMENTS</b>
+            <p>{{ job.requirements }}</p>
+        </div>
+        
+ 
+        
 
-        {% endfor %}
-        </div>
-       
+        
+    </div>
+    <div class="col-md-4 catalog-img">
+        <img src="../static/uploads/{{ job.image_address }}" alt="">
     </div>
     <div class="col-2">
         <button type="button" class="btn btn-outline-primary">Apply now</button>
     </div>
+    <hr class="blue-hr">
+    {% endfor %}
+    
 </div>
 
 {% endblock %}

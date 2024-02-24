@@ -1,3 +1,9 @@
+/* ===================================== Base.html formatting =========================================================== */
+body{
+  text-align: center;
+  background-color: black;
+  color: white;
+}
 #banner{
     height: 280px;
     object-fit:cover;
@@ -21,6 +27,9 @@
       font-family: roboto;
       text-align: center;
   }
+  h2:hover{
+    color: white;
+  }
   .open-position{
       text-align: center;
       align-items: center;
@@ -35,4 +44,37 @@
   height: 350px;
   width: 100%;
   border-radius: 20px;
+}
+
+
+
+
+/* ============================= jobitme.html formatting ===========================================================*/
+.blue-hr{
+  border-color: rgb(64, 64, 248);
+}
+
+.catalog-img img{
+  border-radius: 20px;
+  width: 100%;
+ height: 380px;
+}
+
+.responsibilities{
+  color: green;
+}
+.requirements{
+  color: orange;
+}
+
+/* =============================== jo_post.html formatting =========================================================== */
+.admin-img{
+  width: 50%;
+  
+}
+.admin-img img{
+  width: 100%;
+  height: 580px;
+  object-fit: cover;
+  border-radius: 25px;
 }
