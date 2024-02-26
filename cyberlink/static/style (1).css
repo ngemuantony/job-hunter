@@ -1,0 +1,323 @@
+/* Reset some default styling */
+body, h1, h2, p, form {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    margin: 0; /* Remove default margin */
+}
+
+.content {
+    margin-right: 20px;
+    width: 100%;
+    margin-top: 0;
+    padding: 20px;
+    margin-left: 50px;
+    background-color: white;
+}
+
+#root {
+    display: flex;
+    margin-top: 0;
+    background-color: white;
+}
+
+.column2 {
+    float: left;
+    width: 50%;
+}
+
+.column {
+    float: left;
+    width: 50%;
+}
+
+.logo {
+    max-width: 150px;
+    height: auto;
+}
+
+.header {
+    display: flex;
+    align-items: center;
+}
+
+.language-dropdown {
+    display: flex;
+    margin-left: 250px;
+    align-items: center;
+}
+
+.language-dropdown label {
+    margin-right: 10px;
+}
+
+.language-dropdown select {
+    background-repeat: no-repeat;
+    background-position: 5px center; /* Adjust the position of the icon */
+    padding-left: 30px; /* Adjust the padding based on the icon size */
+}
+
+.login-container {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start; /* Align form to the start */
+    justify-content: center;
+    padding: 20px;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    width: 80%; /* Full width of the login container */
+}
+
+.label-input-group {
+    margin-bottom: 10px;
+}
+
+.label-input-group label {
+    margin-top: 10px;
+    display: block;
+}
+
+.label-input-group input {
+    padding: 8px;
+    border: 1px solid #d8d8d8;
+    border-radius: 5px; /* Border radius */
+    margin-top: 5px; /* Adjust as needed */
+    width: 100%;
+    height: 30px;
+    transition: border-color .15s ease-in-out, box-shadow .15s ease-in-out;
+}
+
+.password-container {
+    position: relative;
+    display: inline-block;
+    width: 100%;
+}
+
+#loginPassword {
+    padding-right: 3px; /* Adjust as needed based on the button's width and desired spacing */
+}
+
+.btn-square {
+    position: absolute;
+    top: 50%;
+    right: 5px; /* Adjust as needed based on the desired spacing */
+    transform: translateY(-50%);
+}
+
+button {
+    background-color: rgb(50, 150, 250);
+    border: none;
+    border-radius: 4px;
+    height: 50px;
+    color: white;
+    padding: 10px;
+    cursor: pointer;
+    display: flex; /* Align items vertically in the center */
+}
+
+button:hover {
+    background-color: rgb(20, 100, 250);
+}
+
+a {
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+    color: black;
+}
+
+.photo-container {
+    flex: 1;
+    height: 100%;
+    padding: 20px; /* Adjust the image path */
+}
+
+img {
+    max-width: 100%;
+    height: auto;
+}
+
+.alert-custom {
+    border: 1px solid rgb(135, 206, 250); /* Dark blue border */
+    background-color: rgb(233, 240, 250); /* Light blue fill color */
+    padding: 5px;
+    margin: 10px;
+    font-size: 11px;
+    border-radius: 8px;
+}
+
+.icon {
+    fill: navy; /* Dark blue color for the icon */
+}
+
+.lock-icon {
+    color: green;
+    width: 14px;
+    height: auto;
+    margin-left: 5px; /* Adjust the margin as needed */
+}
+
+.https {
+    color: rgb(10, 156, 10);
+}
+
+.lock-content {
+    background-color: #fff; /* White background */
+    width: 40%;
+    float: right;
+    padding: 10px; /* Adjust the padding as needed */
+    border-radius: 8px;
+}
+
+#loader p {
+    background-color: black;
+    color: white;
+    align-items: center;
+    padding: 15px;
+    border-radius: 4px;
+}
+
+.errorMessage {
+    margin-bottom: 10px;
+    padding: 15px;
+    border-radius: 10px;
+    color: white;
+    margin-top: 5px;
+    font-size: 16px;
+    background-color: red;
+}
+
+.error-border {
+    border: 1px solid red !important;
+}
+
+.successMessage {
+    color: white;
+    border-radius: 10px;
+    margin-bottom: 10px;
+    padding: 15px;
+    font-size: 16px;
+    margin-top: 5px;
+    background-color: forestgreen;
+}
+
+.number-inputs {
+    display: flex;
+    margin-bottom: 30px;
+    gap: 10px; /* Adjust the gap between inputs as needed */
+}
+
+.number-inputs input {
+    height: 20px;
+    width: 20px;
+    padding: 10px;
+    text-align: center; /* Center the text within the input box */
+}
+
+#userData {
+    margin-top: 20px;
+    color: #555;
+}
+
+.dashboard {
+    background-color: #fff;
+    padding: 20px;
+    width: 80%;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Add a media query for small screens */
+@media only screen and (max-width: 768px) {
+    .content {
+        margin-left: 0; /* Remove left margin for small screens */
+        margin-right: 0; /* Remove right margin for small screens */
+        padding: 10px; /* Adjust padding for small screens */
+    }
+
+    .language-dropdown {
+        margin-left: 0;
+    }
+
+    .row {
+        flex-direction: column;
+    }
+
+    .login-container {
+        align-items: center; /* Align items to the start for small screens */
+    }
+
+    form {
+        width: 100%; /* Full width for small screens */
+    }
+
+    .column,
+    .column2 {
+        width: 100%; /* Full width for small screens */
+    }
+
+    .column2 {
+        visibility: hidden;
+        display: none; /* Hide the photo-container inside the column on small screens */
+    }
+
+    .label-input-group input {
+        width: calc(100% - 16px); /* Full width with padding adjustments */
+    }
+
+    .dashboard {
+        width: 100%; /* Full width for small screens */
+    }
+}
+
+/* Add a media query for screens with a width of 441px */
+@media only screen and (max-width: 441px) {
+    .content {
+        margin-left: 0; /* Remove left margin for small screens */
+        margin-right: 0; /* Remove right margin for small screens */
+        padding: 10px; /* Adjust padding for small screens */
+    }
+
+    .language-dropdown {
+        margin-left: 0;
+    }
+
+    .row {
+        flex-direction: column;
+    }
+
+    .login-container {
+        align-items: center; /* Align items to the start for small screens */
+    }
+
+    form {
+        width: 100%; /* Full width for small screens */
+    }
+
+    .column,
+    .column2 {
+        width: 100%; /* Full width for small screens */
+    }
+
+    .column2 {
+        visibility: hidden;
+        display: none; /* Hide the photo-container inside the column on small screens */
+    }
+
+    .label-input-group input {
+        width: calc(100% - 16px); /* Full width with padding adjustments */
+    }
+
+    .dashboard {
+        width: 100%; /* Full width for small screens */
+    }
+}
+

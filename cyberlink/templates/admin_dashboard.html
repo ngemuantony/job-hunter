@@ -111,10 +111,10 @@
                 <div class="card">
                     <div>
                         <div class="numbers">
-                            15000
+                            {{ total_users_count }}
                         </div>
                         <div class="cardName">
-                            Daily Views
+                            Number of Users
                         </div>
                     </div>
                     <div class="iconBox">
@@ -223,88 +223,30 @@
                 </div>
 
                 
-            <!-- =========================== New Customers ========================= -->
+            <!-- =========================== CURRENT ACTIVE USERS ========================= -->
 
             <div class="Most Applied">
                 <div class="cardHeader">
-                    <h2>Recent Customers</h2>
+                    <h2>CURRENT ACTIVE USERS</h2>
                 </div>
-
+            
                 <table>
+                    {% for user in active_users %}
                     <tr>
                         <td width="60%">
-                            <div class="imgBox"><img src="/assets/imgs/antony.jpg" alt=""></div>
+                            <div class="imgBox">
+                                <img src="/assets/imgs/{{ user.username }}.jpg" alt="">
+                            </div>
                         </td>
                         <td>
-                            <h4>Antony <br><span>Kenya</span></h4>
+                            <h4 class="username">{{ user.username }} <span style="color: greenyellow;font-weight: bolder;">Online</span></p> <br>
+                                <span class="sign_in_time">{{ user.sign_in_time }}</span></h4>
                         </td>
                     </tr>
-
-                    <tr>
-                        <td width="60%">
-                            <div class="imgBox"><img src="/assets/imgs/antony.jpg" alt=""></div>
-                        </td>
-                        <td>
-                            <h4>Antony <br><span>Kenya</span></h4>
-                        </td>
-                    </tr>
-
-                    <tr>
-                        <td width="60%">
-                            <div class="imgBox"><img src="/assets/imgs/antony.jpg" alt=""></div>
-                        </td>
-                        <td>
-                            <h4>Antony <br><span>Kenya</span></h4>
-                        </td>
-                    </tr>
-
-                    <tr>
-                        <td width="60%">
-                            <div class="imgBox"><img src="/assets/imgs/antony.jpg" alt=""></div>
-                        </td>
-                        <td>
-                            <h4>Antony <br><span>Kenya</span></h4>
-                        </td>
-                    </tr>
-
-                    <tr>
-                        <td width="60%">
-                            <div class="imgBox"><img src="/assets/imgs/antony.jpg" alt=""></div>
-                        </td>
-                        <td>
-                            <h4>Antony <br><span>Kenya</span></h4>
-                        </td>
-                    </tr>
-
-                    <tr>
-                        <td width="60%">
-                            <div class="imgBox"><img src="/assets/imgs/antony.jpg" alt=""></div>
-                        </td>
-                        <td>
-                            <h4>Antony <br><span>Kenya</span></h4>
-                        </td>
-                    </tr>
-
-                    <tr>
-                        <td width="60%">
-                            <div class="imgBox"><img src="/assets/imgs/antony.jpg" alt=""></div>
-                        </td>
-                        <td>
-                            <h4>Antony <br><span>Kenya</span></h4>
-                        </td>
-                    </tr>
-
-                    <tr>
-                        <td width="60%">
-                            <div class="imgBox"><img src="/assets/imgs/antony.jpg" alt=""></div>
-                        </td>
-                        <td>
-                            <h4>Antony <br><span>Kenya</span></h4>
-                        </td>
-                    </tr>
+                    {% endfor %}
                 </table>
-
             </div>
+            
 
             </div>
 
@@ -317,5 +259,12 @@
 
     <!-- ==================== ionicons ============================= -->
     <script src="https://unpkg.com/ionicons@4.5.10-0/dist/ionicons.js"></script>
+
+    <!-- ============= Refreshing the site after 20 seconds ================== -->
+    <script>
+        setTimeout(function(){
+            window.location.reload(1);
+        }, 20000);
+    </script>
 </body>
 </html>

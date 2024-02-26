@@ -1,15 +1,24 @@
-# =========================== Import packages from cyberlink folder which is a package folder  ==============================
-# ============================== The classes and objects are mainlly imported from __init__.py which and models.py =============
-from cyberlink import app,db
-from flask import render_template, redirect, url_for, jsonify, request,flash, redirect,url_for
-from cyberlink.models import Job,User,Application
-from cyberlink.forms import RegisterForm,JobForm
+from flask import render_template, redirect, url_for, jsonify, request, flash
+from datetime import datetime
+from . import app, db  # Import app and db from the current package
+from .models import Job, User, Application, login_manager  # Import login_manager directly
+from .forms import RegisterForm, JobForm, LoginForm
 from sqlalchemy.exc import IntegrityError
+from werkzeug.utils import secure_filename
+from werkzeug.security import check_password_hash  # Add this import statement
+from flask_login import login_user, login_required, current_user
 import os
 
+# Other imports and configurations...
+
+# Import login_manager after initializing app
+from .models import login_manager, UserSession, UserPermission
+
+# Imports and configuration for upload functionality...
+
+# Other routes and functions...
 
 # ===================== Imports and configuration for upload functionality =======================
-from werkzeug.utils import secure_filename
 app.config['MAX_CONTENT_LENGTH'] = 16 * 1024 * 1024  # 16MB max file size
 ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg', 'gif'}
 UPLOAD_FOLDER = 'cyberlink/static/uploads'
@@ -18,14 +27,9 @@ app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 # ======================== A route for default startup/index page =================================
 @app.route('/')
 def home_page():
-    return render_template('home.html')# Query all jobs from the database
-   
-#Display job to the user
-# ======================== A route for retrieving jobs from the database and display to the user====
-@app.route('/job_list')
-def job_page():
-    all_jobs = Job.query.all()
-    return render_template('jobitem.html', jobs=all_jobs)
+    print("Rendering home.html")  # Debug print
+    return render_template('home.html')  # Query all jobs from the database
+
 
 # ===================== A route for adding and posting jobs to the database =========================
 
@@ -74,8 +78,6 @@ def add_job():
     
     return render_template('job_post.html', form=JobForm())
 
-
-
 # ================================== A route for creating  job API with jsonify the data can be accessed programmatically ====================
 # Route to access job data in JSON format
 @app.route('/api/jobs')
@@ -109,6 +111,9 @@ def register_page():
         user_to_create = User(username=form.username.data, email_address=form.email_address.data)
         user_to_create.set_password(form.password1.data)
         
+        # Set user permissions
+        user_to_create.user_permissions = UserPermission.USER  # or UserPermission.ADMIN if applicable
+        
         try:
             db.session.add(user_to_create)
             db.session.commit()
@@ -120,13 +125,74 @@ def register_page():
     return render_template('register.html', form=form)
 
 
-# ======================== A route for aunthenticating/login user =====================================
+# =========================== ADMIN PAGE CUSTOMIZATIONS AND LOGIC =================================
+# ========================== A route for administrator dashboard ========================================
+@app.route('/admin/dashboard')
+def admin_dashboard():
+    # Query the database to get the total count of users
+    total_users_count = User.query.count()
+    print("TOTAL USERS COUNT", total_users_count)
+    
+    # Query the database to get active users
+    active_users = User.query.filter_by(session_state=UserSession.ACTIVE).all()
+    
+    return render_template('admin_dashboard.html', total_users_count=total_users_count, active_users=active_users)
+
+   
+
+# ======================== A route for retrieving jobs from the database and display to the user====
+@app.route('/job_list')
+@login_required
+def job_page():
+    # print("Current user session state:", current_user.session_state)  # Debug print
+    # if current_user.session_state == 'ACTIVE':
+
+    all_jobs = Job.query.all()
+    print("Rendering jobitem.html")  # Debug print
+    return render_template('jobitem.html', jobs=all_jobs)
+    # else:
+    #     print("Redirecting to login page")  # Debug print
+    #     flash('You must be logged in and have an active session to access this page.', 'danger')
+    #     return redirect(url_for('login_page'))
+
+
+
+# ======================== A route for authenticating/login user ====================================
+
 @app.route('/login', methods=['POST', 'GET'])
 def login_page():
-    if request.method == 'POST':
-        # Logic for handling login form submission
-        # Assuming you'll authenticate the user here
-        flash('You have been successfully logged in!', 'success')
-        return redirect(url_for('home_page'))
-    return render_template('login.html')
-    
+    form = LoginForm()
+    if form.validate_on_submit():
+        username_or_email = form.username.data
+        password = form.password.data
+
+        # Check if the input is an email address
+        if '@' in username_or_email:
+            user = User.query.filter_by(email_address=username_or_email).first()
+        else:
+            user = User.query.filter_by(username=username_or_email).first()
+
+        if user and check_password_hash(user.password_hash, password):
+            login_user(user)
+            # Update sign_in_time and session_state
+            user.sign_in_time = datetime.now()
+            user.session_state = UserSession.ACTIVE  # Set session_state to 'ACTIVE'
+            db.session.commit()
+            flash('You have been successfully logged in!', 'success')
+            
+            # Redirect based on user permissions
+            if user.user_permissions == UserPermission.ADMIN:
+                return redirect(url_for('admin_dashboard'))
+            else:
+                return redirect(url_for('job_page'))
+        else:
+            flash('Invalid username or password. Please try again.', 'danger')
+
+    return render_template('login.html', form=form)
+
+
+
+
+
+# Debug prints
+print("Routes.py loaded successfully.")

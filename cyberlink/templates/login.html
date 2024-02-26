@@ -1,0 +1,51 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    Login page
+{% endblock %}
+
+{% block content %}
+    <div class="container">
+        <form method="POST" class="form-signin" style="color:white">
+            <h3 class="h3 mb-3 font-weight-normal">
+                Please Login
+            </h3>
+            <hr>
+            {{ form.hidden_tag() }} <!--Protects against Cross Site Request Forgery (CSRF)-->
+
+            {% if form.username.errors %}
+            <div class="alert alert-danger">
+                {% for error in form.username.errors %}
+                    {{ error }}
+                {% endfor %}
+            </div>
+            {% endif %}
+
+            {% if form.password.errors %}
+            <div class="alert alert-danger">
+                {% for error in form.password.errors %}
+                    {{ error }}
+                {% endfor %}
+            </div>
+            {% endif %}
+
+            <!-- Allow users to log in using either username or email address -->
+            {% if form.username.label %}
+            {{ form.username.label() }}
+            {% endif %}
+            {{ form.username(class='form-control', placeholder="User Name or Email Address") }}
+
+            {% if form.password.label %}
+            {{ form.password.label() }}
+            {% endif %}
+            {{ form.password(class="form-control", placeholder="Password") }}
+            <br>
+
+            <div class=" checkbox mb-3">
+                <h6>Do not have an account</h6>
+                <a href="{{ url_for('register_page') }}" class="btn btn-sm btn-secondary">Register Now</a>
+            </div>
+            {{ form.submit(class="btn btn-lg btn-block btn-primary") }}
+        </form>
+    </div>
+{% endblock %}
