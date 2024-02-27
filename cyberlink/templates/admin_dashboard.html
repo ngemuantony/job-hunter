@@ -4,12 +4,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Admin Dashboard</title>
-    <!-- ======================= Style ============================= -->
+    <!-- Link to external CSS file -->
     <link type="text/css" rel="stylesheet" href="{{ url_for('static', filename='style_dashboard.css') }}"> 
-
+    <link type="text/css" rel="stylesheet" href="../static/style_dashboard.css">
 </head>
 <body>
-    <!-- ======================= Navigation =========================== -->
+    <!-- Navigation -->
     <div class="container">
         <div class="navigation">
             <ul>
@@ -76,8 +76,6 @@
                     </a>
                 </li>
 
-           
-
                 <li> 
                     <a href="">
                         <span class="icon">
@@ -87,150 +85,136 @@
                     </a>
                 </li>
             </ul>
+        </div>
+    </div>
 
+    <!-- Main Content -->
+    <div class="main">
+        <!-- Top bar -->
+        <div class="topbar">
+            <div class="toggle">
+                <ion-icon name="menu"></ion-icon>
+            </div>
+            <div class="search">
+                <label>
+                    <input type="text" placeholder="Search here">
+                    <ion-icon name="search"></ion-icon>
+                </label>
+            </div>
+            <div class="user">
+                <img src="/assets/imgs/antony.jpg" alt="">
+            </div>
         </div>
 
-    
-    <!-- ========================== Main =============================== -->
-        <div class="main">
-            <div class="topbar">
-                <div class="toggle">
-                    <ion-icon name="menu"></ion-icon>
+        <!-- Cards -->
+        <div class="cardBox">
+            <div class="card">
+                <div>
+                    <div class="numbers">
+                        {{ total_users_count }}
+                    </div>
+                    <div class="cardName">
+                        Number of Users
+                    </div>
                 </div>
-                <div class="search">
-                    <label>
-                        <input type="text" placeholder="Search here">
-                        <ion-icon name="search"></ion-icon>
-                    </label>
-                </div>
-                <div class="user">
-                    <img src="/assets/imgs/antony.jpg" alt="">
+                <div class="iconBox">
+                    <ion-icon name="eye"></ion-icon>
                 </div>
             </div>
-               <!-- ========================= Cards ================================== -->
-            <div class="cardBox">
-                <div class="card">
-                    <div>
-                        <div class="numbers">
-                            {{ total_users_count }}
-                        </div>
-                        <div class="cardName">
-                            Number of Users
-                        </div>
+
+            <div class="card">
+                <div>
+                    <div class="numbers">
+                        102
                     </div>
-                    <div class="iconBox">
-                        <ion-icon name="eye"></ion-icon>
+                    <div class="cardName">
+                        Applications
                     </div>
                 </div>
-
-                <div class="card">
-                    <div>
-                        <div class="numbers">
-                            102
-                        </div>
-                        <div class="cardName">
-                            Applications
-                        </div>
-                    </div>
-                    <div class="iconBox">
-                        <ion-icon name="cart"></ion-icon>
-                    </div>
+                <div class="iconBox">
+                    <ion-icon name="cart"></ion-icon>
                 </div>
-
-                <div class="card">
-                    <div>
-                        <div class="numbers">
-                            1325647
-                        </div>
-                        <div class="cardName">
-                            Comments
-                        </div>
-                    </div>
-                    <div class="iconBox">
-                        <ion-icon name="chatboxes"></ion-icon>
-                    </div>
-                </div>
-
-                <div class="card">
-                    <div>
-                        <div class="numbers">
-                            186254
-                        </div>
-                        <div class="cardName">
-                            Ratings
-                        </div>
-                    </div>
-                    <div class="iconBox">
-                        <ion-icon name="wallet"></ion-icon>
-                    </div>
-                </div>
-
             </div>
-            <!-- =================== Order Details Lists ================= -->
-            <div class="details">
-                <div class="recentOrders">
-                    <div class="cardHeader">
-                        <h2>Recent Applications</h2>
-                        <a href="#" class="btn">View All</a>
+
+            <div class="card">
+                <div>
+                    <div class="numbers">
+                        1325647
                     </div>
-
-                    <table>
-                        <thead>
-                            <tr>
-                                <td>Name</td>
-                                <td>Price</td>
-                                <td>Payment</td>
-                                <td>Status</td>
-
-                            </tr>
-                        </thead>
-
-                        <tbody>
-                            <tr>
-                                <td>Air Conditioner</td>
-                                <td>Ksh 56,000</td>
-                                <td>Paid</td>
-                                <td><span class="status delivered">Confirmed</span></td>
-
-                            </tr>
-
-                            <tr>
-                                <td>Lenovo Thinkpadr</td>
-                                <td>Ksh 34,999</td>
-                                <td>Due</td>
-                                <td><span class="status pending">Pending</span></td>
-
-                            </tr>
-
-                            <tr>
-                                <td>DJI Mini 2</td>
-                                <td>Ksh 79,999</td>
-                                <td>Paid</td>
-                                <td><span class="status return">Not Approved</span></td>
-
-                            </tr>
-
-                            <tr>
-                                <td>Smart Lock</td>
-
-                                <td>Ksh 9,999</td>
-                                <td>Due</td>
-                                <td><span class="status inProgress">Reviewing</span></td>
-
-                            </tr>
-                        </tbody>
-
-                    </table>
+                    <div class="cardName">
+                        Comments
+                    </div>
                 </div>
+                <div class="iconBox">
+                    <ion-icon name="chatboxes"></ion-icon>
+                </div>
+            </div>
 
-                
-            <!-- =========================== CURRENT ACTIVE USERS ========================= -->
+            <div class="card">
+                <div>
+                    <div class="numbers">
+                        186254
+                    </div>
+                    <div class="cardName">
+                        Ratings
+                    </div>
+                </div>
+                <div class="iconBox">
+                    <ion-icon name="wallet"></ion-icon>
+                </div>
+            </div>
+        </div>
 
+        <!-- Order Details -->
+        <div class="details">
+            <div class="recentOrders">
+                <div class="cardHeader">
+                    <h2>Recent Applications</h2>
+                    <a href="#" class="btn">View All</a>
+                </div>
+                <table>
+                    <thead>
+                        <tr>
+                            <td>Name</td>
+                            <td>Price</td>
+                            <td>Payment</td>
+                            <td>Status</td>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Air Conditioner</td>
+                            <td>Ksh 56,000</td>
+                            <td>Paid</td>
+                            <td><span class="status delivered">Confirmed</span></td>
+                        </tr>
+                        <tr>
+                            <td>Lenovo Thinkpadr</td>
+                            <td>Ksh 34,999</td>
+                            <td>Due</td>
+                            <td><span class="status pending">Pending</span></td>
+                        </tr>
+                        <tr>
+                            <td>DJI Mini 2</td>
+                            <td>Ksh 79,999</td>
+                            <td>Paid</td>
+                            <td><span class="status return">Not Approved</span></td>
+                        </tr>
+                        <tr>
+                            <td>Smart Lock</td>
+                            <td>Ksh 9,999</td>
+                            <td>Due</td>
+                            <td><span class="status inProgress">Reviewing</span></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Active Users -->
             <div class="Most Applied">
                 <div class="cardHeader">
                     <h2>CURRENT ACTIVE USERS</h2>
                 </div>
-            
                 <table>
                     {% for user in active_users %}
                     <tr>
@@ -247,21 +231,12 @@
                     {% endfor %}
                 </table>
             </div>
-            
-
-            </div>
-
         </div>
     </div>
- 
-    <!-- ==================== Scripts ============================= -->
+
+    <!-- Scripts -->
     <script src="../static/main.js"></script>
-
-
-    <!-- ==================== ionicons ============================= -->
     <script src="https://unpkg.com/ionicons@4.5.10-0/dist/ionicons.js"></script>
-
-    <!-- ============= Refreshing the site after 20 seconds ================== -->
     <script>
         setTimeout(function(){
             window.location.reload(1);
