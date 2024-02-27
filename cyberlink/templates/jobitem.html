@@ -29,16 +29,18 @@
             <b>Salary: </b>{{ job.salary }}
         </div>
         {% endif %}
-        <div>
-            <br>
-            <b class="responsibilities">RESPONSIBILITIES: </b>
-            <p>{{ job.responsibilities }}</p>
-        </div>
+       
         <div>
             <br>
             <b class="requirements">REQUIREMENTS</b>
             <p>{{ job.requirements }}</p>
         </div>
+
+       <div>
+           <br>
+           <b class="responsibilities">RESPONSIBILITIES: </b>
+           <p>{{ job.responsibilities }}</p>
+       </div>
         
  
         
@@ -55,5 +57,12 @@
     {% endfor %}
     
 </div>
+
+<!-- ================== Thsi page refreshes after every one minute =================== -->
+<script>
+    setTimeout(function(){
+        window.location.reload(1);
+    }, 60000);
+</script>
 
 {% endblock %}
