@@ -72,9 +72,10 @@ def add_job():
             db.session.commit()
             
             flash('Job added successfully', 'success')
-            return redirect(url_for('job_page'))
+            return redirect(url_for('add_job'))
         else:
             flash('Form validation failed. Please check your input.', 'danger')
+          return redirect(url_for(home_page))
     
     return render_template('job_post.html', form=JobForm())
 
