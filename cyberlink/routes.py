@@ -44,12 +44,12 @@ def add_job():
         if 'image' not in request.files:
             flash('No file part', 'danger')
             return redirect(request.url)
-        
+
         file = request.files['image']
         if file.filename == '':
             flash('No selected file', 'danger')
             return redirect(request.url)
-        
+
         if file and allowed_file(file.filename):
             filename = secure_filename(file.filename)
             file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
@@ -57,7 +57,7 @@ def add_job():
         else:
             flash('Invalid file format. Allowed formats are PNG, JPG, JPEG, and GIF', 'danger')
             return redirect(request.url)
-        
+
         form = JobForm(request.form)
         if form.validate():
             title = form.title.data
@@ -70,13 +70,14 @@ def add_job():
             new_job = Job(title=title, location=location, salary=salary, currency=currency, responsibilities=responsibilities, requirements=requirements, image_address=filename)
             db.session.add(new_job)
             db.session.commit()
-            
+
             flash('Job added successfully', 'success')
             return redirect(url_for('add_job'))
+
         else:
             flash('Form validation failed. Please check your input.', 'danger')
-          return redirect(url_for(home_page))
-    
+            return redirect(url_for('home_page'))
+
     return render_template('job_post.html', form=JobForm())
 
 # ================================== A route for creating  job API with jsonify the data can be accessed programmatically ====================
@@ -108,13 +109,13 @@ def register_page():
         if existing_user:
             flash('Email address is already registered. Please use a different email address.', 'danger')
             return redirect(url_for('register_page'))
-        
+
         user_to_create = User(username=form.username.data, email_address=form.email_address.data)
         user_to_create.set_password(form.password1.data)
-        
+
         # Set user permissions
         user_to_create.user_permissions = UserPermission.USER  # or UserPermission.ADMIN if applicable
-        
+
         try:
             db.session.add(user_to_create)
             db.session.commit()
@@ -127,19 +128,21 @@ def register_page():
 
 
 # =========================== ADMIN PAGE CUSTOMIZATIONS AND LOGIC =================================
-# ========================== A route for administrator dashboard ========================================
 @app.route('/admin/dashboard')
 def admin_dashboard():
     # Query the database to get the total count of users
     total_users_count = User.query.count()
     print("TOTAL USERS COUNT", total_users_count)
-    
+
     # Query the database to get active users
     active_users = User.query.filter_by(session_state=UserSession.ACTIVE).all()
-    
-    return render_template('admin_dashboard.html', total_users_count=total_users_count, active_users=active_users)
 
-   
+    # Query the database to get all jobs and count
+    all_jobs = Job.query.all()
+    job_count = len(all_jobs)
+
+    return render_template('admin_dashboard.html', total_users_count=total_users_count, active_users=active_users, jobs=all_jobs, job_count=job_count)
+
 
 # ======================== A route for retrieving jobs from the database and display to the user====
 @app.route('/job_list')
@@ -180,7 +183,7 @@ def login_page():
             user.session_state = UserSession.ACTIVE  # Set session_state to 'ACTIVE'
             db.session.commit()
             flash('You have been successfully logged in!', 'success')
-            
+
             # Redirect based on user permissions
             if user.user_permissions == UserPermission.ADMIN:
                 return redirect(url_for('admin_dashboard'))

@@ -153,10 +153,10 @@
             <div class="card">
                 <div>
                     <div class="numbers">
-                        186254
+                        {{ job_count}}
                     </div>
                     <div class="cardName">
-                        Ratings
+                       Available Jobs
                     </div>
                 </div>
                 <div class="iconBox">
@@ -213,24 +213,66 @@
             <!-- Active Users -->
             <div class="Most Applied">
                 <div class="cardHeader">
-                    <h2>CURRENT ACTIVE USERS</h2>
+                    <h2>CURRENT STATISTICS</h2>
                 </div>
                 <table>
-                    {% for user in active_users %}
                     <tr>
-                        <td width="60%">
+                        <td>
                             <div class="imgBox">
-                                <img src="/assets/imgs/{{ user.username }}.jpg" alt="">
+                                <h3>POSTS</h3>
+                                <table style="color: blue;">
+                                    {% for job in jobs %}
+                                        <tr>
+                                            <td>{{ job.title }}</td>
+                                        </tr>
+                                    {% endfor %}
+                                </table>
+                                <br>
+                                <p>
+                                <span style="background-color: orange;
+                                ">
+                                    TOTAL POSTS
+                                </span>:
+                                <span style="color: orange;
+                                font-size: 20px;
+                                font-family: 'Times New Roman', Times, serif;
+                                font-weight: bolder;">
+                                    {{ job_count }}
+                                </span>
+                                </p>
                             </div>
                         </td>
+                        <hr>
                         <td>
-                            <h4 class="username">{{ user.username }} <span style="color: greenyellow;font-weight: bolder;">Online</span></p> <br>
-                                <span class="sign_in_time">{{ user.sign_in_time }}</span></h4>
+                            <div class="userBox">
+                                <h3>ACTIVE USERS</h3>
+                                <table>
+                                    {% for user in active_users %}
+                                        <tr>
+                                            <td>{{ user.username }} <span style="color: greenyellow;font-weight: bolder;">Online</span><br>
+                                            <span class="sign_in_time">{{ user.sign_in_time }}</span></td>
+                                        </tr>
+                                    {% endfor %}
+                                </table>
+                                <br>
+                                <p> 
+                                <span style="background-color: green;">
+                                    ACTIVE USERS
+                                </span>:
+                                <span style="color:green;
+                                font-family: 'Times New Roman', Times, serif;
+                                font-weight: bolder;
+                                font-size: 20px;"
+                                >
+                                    {{ total_users_count }}
+                                </span>
+                                </p>
+                            </div>
                         </td>
                     </tr>
-                    {% endfor %}
                 </table>
             </div>
+            
         </div>
     </div>
 
